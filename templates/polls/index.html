@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1 class="text-center mb-3">Poll Questions</h1>
+
+    <div class="card mb-3">
+        <div class="card-header mb-3">
+            <a class="btn btn-dark" href="{% url 'polls:add_question' %}">Add a Question</a>
+        </div>
+        {% if latest_question_list %}
+            {% for question in latest_question_list %}
+                <div class="card-body">
+                    <p class="lead">{{ question.question_text }}</p>
+                    <a href="{% url 'polls:detail' question.id %}" class="btn btn-primary btn-sm">Vote Now</a>
+                    <a href="{% url 'polls:results' question.id %}" class="btn btn-secondary btn-sm">Results</a>
+
+                    <form action="{% url 'polls:delete' question.id %}" method="post" style="display: inline;">
+                        {% csrf_token %}
+                        <input type="hidden" name="song_id" value="{{ question.id }}" />
+                        <button type="submit" class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove"></span>&nbsp; Delete
+                        </button>
+                    </form>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No polls available</p>
+        {% endif %}
+    </div>
+{% endblock %}

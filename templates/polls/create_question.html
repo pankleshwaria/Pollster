@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block title %}Add Question{% endblock %}
+{% block content %}
+
+    <a class="btn btn-secondary btn-sm mb-3" href="{% url 'polls:index' %}">Back To Polls</a>
+    <h1 class="text-center mb-3">Start a Poll</h1>
+
+    {% if error_message %}
+        <p class="alert alert-danger">
+            <strong>{{ error_message }}</strong>
+        </p>
+    {% endif %}
+
+    <form action="{% url 'polls:add_question' %}" method="post">
+        {% csrf_token %}
+
+
+        <div class="form-group">
+            <label>Question</label>
+            <input type="text" class="form-control" name="question"  placeholder="Ask something here...">
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label>Option 1</label>
+                <input type="text" class="form-control" name="choice" placeholder="Option 1">
+            </div>
+
+            <div class="form-group col-md-6">
+                <label>Option 2</label>
+                <input type="text" class="form-control" name="choice" placeholder="Option 2">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label>Option 3</label>
+                <input type="text" class="form-control" name="choice" placeholder="Option 3">
+            </div>
+
+            <div class="form-group col-md-6">
+                <label>Option 4</label>
+                <input type="text" class="form-control" name="choice" placeholder="Option 4">
+            </div>
+
+            <div class="form-group col-md-6">
+                <input type="submit" value="Add" class="btn btn-success" />
+                <a class="btn btn-secondary" href="{% url 'polls:index' %}">Cancel</a>
+            </div>
+        </div>
+    </form>
+
+
+{% endblock %}
